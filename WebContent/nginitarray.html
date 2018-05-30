@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="angular.js"></script>
+</head>
+<body ng-app="">
+<div ng-init="ar=['java','html','css']">
+<div ng-init="x='red'"></div>
+<ol>
+	<li ng-repeat="item in ar">
+		{{item}}
+	</li>
+</ol>
+Select back ground color:<select ng-model='x'>
+<option>red</option>
+<option>blue</option>
+<option>gray</option>
+</select>
+<table border=2 bgcolor={{x}}>
+<tr>
+<th>course names</th>
+</tr>
+<tr ng-repeat="item in ar">
+ <td>
+ {{item}}
+ </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

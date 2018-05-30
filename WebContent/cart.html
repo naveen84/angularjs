@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="angular.js"></script>
+</head>
+<body ng-app = "cartApplication" ng-controller= "cartController">
+<ul>
+ <li ng-repeat  = " item in products ">
+ {{item}} <span ng-click="removeItem($index)">&times;</span>
+ </li>
+</ul>
+<input type="text"  ng-model="addItem"/>
+<button ng-click="add()">add item</button> <p>{{errorText}}</p>
+</body>
+<script>
+ var app = angular.module("cartApplication",[])
+ app.controller("cartController",function($scope)
+		 {
+	 		$scope.addItem ="";
+	 		
+	 		$scope.products = ["shirts","t-shirts","jeans"];
+	 		$scope.add = function()
+	 		{
+	 			$scope.errorText = "";
+	 		
+	 			if(!$scope.addItem)
+ 				{
+ 				 return;
+ 				}
+	 			if($scope.products.indexOf($scope.addItem) == -1)
+	 			  {
+	 				 $scope.products.push($scope.addItem)
+	 			  }
+	 			else
+	 			{
+	 				
+	 				$scope.errorText = "item already added to the list";
+	 			}
+	 			
+	 		}
+	 		$scope.removeItem = function(x)
+	 		{
+	 			$scope.products.splice(x,1);
+	 		}
+	 		
+         })
+
+</script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="angular.js"></script>
+</head>
+<body ng-app="studentApp">
+<div ng-controller="studentController">
+{{sname}}
+{{courses}}
+{{sobj.sid}}
+{{sobj.sname}}
+{{sobj.marks}}
+
+</div>
+</body>
+<script>
+
+var stud = angular.module("studentApp",[]);
+stud.controller("studentController",function($scope)
+{
+	$scope.sname = "krishna";
+	$scope.courses = ["java","angular js","sql"];
+	$scope.sobj = {sid:1,sname:"krishna",marks:100};
+	
+});
+
+
+</script>
+</html>

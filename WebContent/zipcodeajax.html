@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src = "angular.js"></script>
+</head>
+<body ng-app="zipapp" ng-controller="zipcontroller">
+<div>
+Enter your zip code:
+<input type = "text" placeholder="enter zipcode" ng-model="zipcode"/>
+<button ng-click=f1()>click</button> <br>
+<table border=2px">
+<th>Select your Village/Town</th>
+<th>Taluk</th>
+<th>District</th>
+<th>State</th>
+<th>Country</th>
+<tr >
+<td><select ng-model="village">
+<option ng-repeat = "items in names">{{items.Name}}</option>
+</select></td> 
+ <td><input value = "{{city}}"/></td>
+<td><input value = "{{district}}"/></td>
+<td><input value = "{{state}}"/></td>
+<td><input value = "{{country}}"/></td> 
+</tr>
+</table>
+</div>
+<p style="background-color: blue; ">{{village}}</p>
+<p style="background-color: blue; ">{{errorText}}</p>
+</body>
+<script>
+var app = angular.module("zipapp",[])
+app.controller("zipcontroller",function($scope,$http,$log){
+	$scope.village="";
+	$scope.f1 = function()
+	{
+		var successCallBack = function(response)
+		{
+			    $scope.city     = response.data.PostOffice[0].Taluk;
+				$scope.district = response.data.PostOffice[0].District;
+				$scope.state    = response.data.PostOffice[0].State;
+				$scope.country  = response.data.PostOffice[0].Country;  
+				$scope.names    = response.data.PostOffice; 
+			 	$scope.errorText = response.data.Status;
+				$log.info( $scope.errorText) 
+		}
+		$http({
+			      url:"http://postalpincode.in/api/pincode/"+$scope.zipcode,
+			      method:"GET"
+		     }).then(successCallBack)
+	}
+	
+})
+</script>
+</html>

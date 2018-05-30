@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src ="angular.js"></script>
+<style>
+.c1{background-color: blue;}
+.c2{background-color: gray;}
+.c3{background-color: lime;}
+</style>
+</head>
+<body ng-app ="employeeApp">
+<div ng-controller="employeeController">
+Select sort item:
+<select ng-model='x'>
+<option>ename</option>
+<option>sal</option>
+</select><br>
+Do you want in descending order?
+<input type ="checkbox" ng-model="y"/>
+<input ng-model="s"/>
+<table border=2px>
+<tr>
+<th>EMPLOYEE ID</th>
+<th>EMPLOYEE NAME</th>
+<th>SALARY</th>
+</tr>
+<tr ng-repeat="item in empobj|orderBy:x:y|limitTo:click| filter : s" , ng-class="{c1:$even,c2:$odd}">
+<td>{{item.eid}}</td>
+<td>{{item.ename|uppercase}}</td>
+<td>&#8377{{item.sal}}</td>
+</table>
+<input type="button" value ="show more" ng-click="click=click+5" ng-show = "click<empobj.length"/>
+<input type="button" value ="show less" ng-click="click=click-5" ng-show = "click>5"/>
+</div>
+</body>
+<script>
+var emp = angular.module("employeeApp",[]);
+emp.controller("employeeController",function($scope)
+	{
+		$scope.empobj = [
+			             {eid:1,ename:"krishna",sal:25000},
+			             {eid:2,ename:"ram",sal:24000},
+			             {eid:3,ename:"naveen",sal:23000},
+			             {eid:4,ename:"ronaldo",sal:22000},
+			             {eid:5,ename:"elon musk",sal:21000},
+			             {eid:6,ename:"jack ma",sal:18000},
+			             {eid:7,ename:"bill gates",sal:15000},
+			             {eid:8,ename:"jay shetty",sal:13000},
+			             {eid:9,ename:"virat",sal:12000},
+			             {eid:10,ename:"messi",sal:11000},
+			             {eid:11,ename:"dhoni",sal:10000},
+			             {eid:12,ename:"angelina",sal:9000},
+			             {eid:13,ename:"rakul",sal:8000},
+			             {eid:14,ename:"pooja",sal:7000},
+			             {eid:15,ename:"shraddha",sal:6000},
+			             
+			             ]
+		$scope.x="ename";
+		$scope.y=false;
+		$scope.click = 5;
+		
+    });
+
+</script>
+</html>

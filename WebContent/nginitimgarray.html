@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="angular.js"></script>
+</head>
+<body ng-app="">
+<div ng-init="ar=['krishna1.jpg','krishna2.jpg','krishna3.jpg','Quotefancy1.jpg','Quotefancy2.jpg','Quotefancy3.jpg']">
+<table border=2 width=450 height=300>
+	<tr>
+	 <th>Number</th>
+	 <th>Image name</th>
+	 <th>Image</th>
+	</tr>
+	<tr ng-repeat="item in ar">
+	 <td>{{$index+1}}</td>
+	 <td>{{item}}</td>
+	 <td><img src={{item}} width=200 height=150/></td>
+	</tr>
+</table>
+</div>
+</body>
+</html>

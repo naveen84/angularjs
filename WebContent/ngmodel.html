@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="angular.js"></script>
+</head>
+<body ng-app="">
+<div ng-init="x='krishna1.jpg'">
+Select image:
+<select ng-model="x">
+<option>krishna1.jpg</option>
+<option>krishna2.jpg</option>
+<option>krishna3.jpg</option>
+</select>
+<img src ="{{x}}" width=150 height=200 />
+<h3>Image name : {{x}}</h3>
+</div>
+</body>
+</html>

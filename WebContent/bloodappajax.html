@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="angular.js"></script>
+</head>
+<body ng-app="bloodApp">
+<div ng-controller="bloodAppController">
+<input type ="text" placeholder="enter donor id" ng-model='id'/><br>
+<input type="button" ng-click=f3() value="get donors by id"/><br>
+<input type="button" ng-click=f4() value="get donors by place and grup"/><br>
+<select   ng-model = "place">
+<option>rayachoty</option>
+</select>
+ <table border=2 height=150 width=50>
+<tr>
+	<th>DONAR ID</th>
+	<th>DONOR NAME</th>
+	<th>AGE</th>
+	<th>BLOODGROUP</th>
+	<th>WEIGHT</th>
+	<th>MOBILE NUMBER</th>
+	<th>ALTERNATE MOBILE NUMBER</th>
+	<th>NATIVE PLACE</th>
+	<th>CURRENT LOCATION</th>
+	
+</tr>
+<tr>
+<td>{{d.donarId}}</td>
+<td>{{d.name}}</td>
+<td>{{d.age}}</td>
+<td>{{d.gender}}</td>
+<td>{{d.bloodGroup}}</td>
+<td>{{d.weight}}</td>
+<td>{{d.mobile}}</td>
+<td>{{d.alterMobile}}</td>
+<td>{{d.nativePlace}}</td>
+<td>{{d.currentLocation}}</td>
+
+</tr>
+</table> 
+<table border=2 height=150 width=50>
+<tr>
+	<th>DONAR ID</th>
+	<th>DONOR NAME</th>
+	<th>AGE</th>
+	<th>GENDER</th>
+	<th>BLOODGROUP</th>
+	<th>WEIGHT</th>
+	<th>MOBILE NUMBER</th>
+	<th>ALTERNATE MOBILE NUMBER</th>
+	<th>NATIVE PLACE</th>
+	<th>CURRENT LOCATION</th>
+	
+</tr>
+<tr ng-repeat = "d1 in d1">
+<td>{{d1.donarId}}</td>
+<td>{{d1.name}}</td>
+<td>{{d1.age}}</td>
+<td>{{d1.gender}}</td>
+<td>{{d1.bloodGroup}}</td>
+<td>{{d1.weight}}</td>
+<td>{{d1.mobile}}</td>
+<td>{{d1.alterMobile}}</td>
+<td>{{d1.nativePlace}}</td>
+<td>{{d1.currentLocation}}</td>
+
+</tr>
+</table>
+SELECT DONOR BY BLOOD GROUP:
+<select ng-model="bloodGroup">
+<option>A+</option>
+<option>A-</option>
+<option>B+</option>
+<option>B-</option>
+<option>AB+</option>
+<option>o+</option>
+<option>0-</option>
+</select><br>
+<input type="button" ng-click=f2() value="get donors by bloodgroup"/><br>
+ <table border=2px>
+<tr>
+	<th>DONAR ID</th>
+	<th>DONOR NAME</th>
+	<th>AGE</th>
+	<th>BLOODGROUP</th>
+	<th>WEIGHT</th>
+	<th>MOBILE NUMBER</th>
+	<th>ALTERNATE MOBILE NUMBER</th>
+	<th>NATIVE PLACE</th>
+	<th>CURRENT LOCATION</th>
+	
+</tr>
+<tr ng-repeat="item in donor">
+<td>{{item.donarId}}</td>
+<td>{{item.name|uppercase}}</td>
+<td>{{item.age}}</td>
+<td>{{item.bloodGroup|uppercase}}</td>
+<td>{{item.weight}}</td>
+<td>{{item.mobile}}</td>
+<td>{{item.alterMobile}}</td>
+<td>{{item.nativePlace|uppercase}}</td>
+<td>{{item.currentLocation|uppercase}}</td>
+
+</tr>
+</table> 
+<input type="button" ng-click=f1() value="get all donors"/>
+</div>
+</body>
+<script>
+var app = angular.module("bloodApp",[]);
+app.controller("bloodAppController",function($scope,$http){
+	$scope.donor=[];
+	$scope.d;
+	$scope.d1;
+	$scope.f1 = function()
+	{
+		$http({
+			url:"http://localhost:8080/getAll",
+			method:"GET",
+			data:"",
+			headers:{
+				     "Content-Type" : "application/json"
+			        }
+		}).then(function(response){
+			$scope.donor = response.data;
+			
+		});
+	};
+	$scope.f2 = function()
+	{
+		$http({
+			url:"http://localhost:8080/getByBloodGroup"+"/"+$scope.bloodGroup,
+			method:"GET",
+			data:"",
+			headers:{
+				     "Content-Type" : "application/json"
+			        }
+		}).then(function(response)
+				{
+			
+			$scope.donor = response.data;
+		});
+	};
+	$scope.f3 = function()
+	{
+		
+		$http({
+			url:"http://localhost:8080/getUserById"+"/"+$scope.id,
+			method:"GET",
+			data:"",
+			headers:{
+				      "Content-Type" : "application/json"
+			        }
+		}).then(function(response){
+			$scope.d = response.data;
+		});
+	};
+	$scope.f4 = function()
+	{
+		$http({
+			url : "http://localhost:8080/getByBloodGroup"+"/"+$scope.bloodGroup+"/"+$scope.place+"/"+"male",
+			method:"GET",
+			data:"",
+			headers:{
+				"Content-Type" : "application/json"
+			}
+		}).then(function(response){
+			$scope.d1=response.data;
+		});
+	};
+	
+});
+</script>
+</html>
